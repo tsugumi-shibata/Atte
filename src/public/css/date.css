@@ -1,0 +1,49 @@
+.content{
+    
+}
+
+.date-navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.date {
+    margin: auto 20px;
+}
+
+.button {
+    border: 1px solid blue;
+    color: blue;
+    font-size: 24px;
+    background-color: white;
+    padding: 2px 15px;
+    cursor: pointer;
+}
+
+.table {
+    width: 1200px;
+    table-layout: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    margin-left: 110px;
+    font-size: large;
+}
+
+th {
+    justify-content: space-between;
+}
+
+th,td {
+    border-top: 1px solid #000;
+    padding: 25px;
+    text-align: center;
+    
+}
+
+.pagination{
+    display: flex;
+    justify-content: center;
+}

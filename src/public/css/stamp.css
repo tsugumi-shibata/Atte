@@ -1,0 +1,28 @@
+.content{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+h2{
+    margin-top: 40px;
+    font-weight: 500;
+}
+
+.stamp{
+    display: grid;
+    grid-template-columns: repeat(2,auto);
+    /* gap: 10px; */
+}
+
+.stamp button{
+    padding: 70px 210px;
+    background-color: #fff;
+    border: none;
+    border-radius: 3px;
+    font-size: 24px;
+    font-weight:500;
+    margin: 25px;
+    cursor: pointer;
+}

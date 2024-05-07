@@ -1,0 +1,38 @@
+.header{
+    background-color: white;
+    top: 0;
+    padding-left: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.footer{
+    background-color: white;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    font-weight: bolder;
+}
+
+body{
+    background-color: #f0f0f0;
+}
+
+
+
+.navigation ul li{
+    display: inline-block;
+    margin-right: 50px;
+}
+
+.navigation ul li a{
+    text-decoration: none;
+    line-height: 60px;
+    color: black;
+    font-size: 18px;
+    font-weight: 600;
+}
