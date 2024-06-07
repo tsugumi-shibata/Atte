@@ -1,3 +1,6 @@
+
+
+
 .header{
     background-color: white;
     top: 0;
@@ -23,16 +26,23 @@ body{
 }
 
 
-
-.navigation ul li{
+.nav_item{
     display: inline-block;
     margin-right: 50px;
-}
-
-.navigation ul li a{
-    text-decoration: none;
     line-height: 60px;
     color: black;
     font-size: 18px;
     font-weight: 600;
+}
+
+.nav_item a{
+    text-decoration: none;
+    color: black;
+}
+
+.logout-button{
+    border: none;
+    background-color: white;
+    font-weight: 600;
+    font-size: 18px;
 }

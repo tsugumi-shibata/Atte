@@ -28,7 +28,7 @@ h2 {
 }
 
 
-.button {
+.login-button {
     padding: 15px 120px;
     width: 100%;
     background-color: blue;
@@ -41,7 +41,7 @@ h2 {
     cursor: pointer;
 }
 
-.login {
+.register-link {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -56,4 +56,10 @@ h2 {
 
 a {
     text-decoration: none;
+}
+
+.error{
+    color:red;
+    margin-top: 0px;
+
 }

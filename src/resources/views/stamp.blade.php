@@ -4,39 +4,47 @@
 <link rel="stylesheet" href="{{ asset('css/stamp.css') }}">
 @endsection
 
-<!-- @section('navigation')
-<nav class="navigation">
-    <ul>
-        <li><a href="#">ホーム</a></li>
-        <li><a href="#">日付一覧</a></li>
-        <li><a href="#">ログアウト</a></li>
-    </ul>
-</nav>
-@endsection -->
-
-
 @section('content')
-<!-- <div class="content">
-    <h2>◯◯さんお疲れ様です!</h2>
-    <div class="stamp">
-        <button>勤務開始</button>
-        <button>勤務終了</button>
-        <button>休憩開始</button>
-        <button>休憩終了</button>
+
+<div class="content">
+    <div class="message">
+        <p>{{ Auth::user()->name }}さんお疲れ様です！</p>
     </div>
-</div> -->
 
-<div class="message">
-    <h2>◯◯さんお疲れ様です!</h2>
+    @if (session('status'))
+        <div class="alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+
+    <div class="stamp">
+        <form method="post" action="{{ route('work.start') }}">
+            @csrf
+            <button class="stamp-button" type="submit">勤務開始</button>
+        </form>
+        <form method="post" action="{{ route('work.end') }}">
+            @csrf
+            <button class="stamp-button" type="submit">勤務終了</button>
+        </form>
+
+        @if($currentWorkId)
+            <form method="post" action="{{ route('break.start',['workId' => $currentWorkId]) }}">
+                @csrf
+                <button class="stamp-button" type="submit">休憩開始</button>
+            </form>
+            <form method="post" action="{{ route('break.end',['workId' => $currentWorkId]) }}">
+                @csrf
+                <button class="stamp-button" type="submit">休憩終了</button>
+            </form>
+@endif
+    </div>
 </div>
-
-<form class="stamp">
-    <button class="stamp" type="submit">勤務開始</button>
-    <button class="stamp" type="submit">勤務終了</button>
-    <button class="stamp" type="submit">休憩開始</button>
-    <button class="stamp" type="submit">休憩終了</button>
-</form>
-
 
 @endsection
 

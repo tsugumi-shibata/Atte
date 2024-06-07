@@ -10,6 +10,7 @@
 </head>
 
 <body>
+
     <header class="header">
         <h1>Atte</h1>
 
@@ -17,15 +18,18 @@
             <ul class="nav">
                 @if (Auth::check())
                 <li class="nav_item">
-                    <a href="#">ホーム</a>
+                    <a href="{{ route('stamp') }}">ホーム</a>
                 </li>
                 <li class="nav_item">
-                    <a href="#">日付一覧</a>
+                    <a href="{{ route('date') }}">日付一覧</a>
                 </li>
-                <li class="nav/item">
-                    <form class="form" action="/logout" method="post">
+                <li class="nav_item">
+                    <a href="{{ route('users.index') }}">会員一覧</a>
+                </li>
+                <li class="nav_item">
+                    <form class="form" action="{{ route('logout') }}"method="post">
                         @csrf
-                        <button>ログアウト</button>
+                        <button class="logout-button" type="submit">ログアウト</button>
                     </form>
                 </li>
                 @endif

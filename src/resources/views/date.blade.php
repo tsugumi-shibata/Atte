@@ -4,85 +4,66 @@
 <link rel="stylesheet" href="{{ asset('css/date.css') }}">
 @endsection
 
-<!-- @section('navigation')
-<nav class="navigation">
-    <ul>
-        <li><a href="#">ホーム</a></li>
-        <li><a href="#">日付一覧</a></li>
-        <li><a href="#">ログアウト</a></li>
-    </ul>
-</nav>
-@endsection -->
-
 @section('content')
 <div class="content">
 
-    <h2 class="date-navigation">
-            <button class="button"> < </button>
-                <span class=date>yyyy-m-d</span>
-            <button class="button"> > </button>
-    </h2>
+    <p class="date-navigation">
+            <a href="{{ route('date',['date' => $carbonDate->copy()->subDay()->format('Y-m-d')]) }}" class="button"> &lt; </a>
+            <span class="date">{{ $carbonDate->format('Y-m-d') }}</span>
+            <a href="{{ route('date',['date' => $carbonDate->copy()->addDay()->format('Y-m-d')]) }}" class="button"> &gt; </a>
+    </p>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>名前</th>
-                <th>勤務開始</th>
-                <th>勤務終了</th>
-                <th>休憩時間</th>
-                <th>勤務時間</th>
-            </tr>
-        </thead>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>名前</th>
+                    <th>勤務開始</th>
+                    <th>勤務終了</th>
+                    <th>休憩時間</th>
+                    <th>勤務時間</th>
+                </tr>
+            </thead>
 
-        <tbody>
-            <tr>
-                <td>テスト太郎</td>
-                <td>10:00:00</td>
-                <td>20:00:00</td>
-                <td>01:00:00</td>
-                <td>09:00:00</td>
-            </tr>
-            <tr>
-                <td>テスト太郎</td>
-                <td>10:00:00</td>
-                <td>20:00:00</td>
-                <td>01:00:00</td>
-                <td>09:00:00</td>
-            </tr>
-            <tr>
-                <td>テスト太郎</td>
-                <td>10:00:00</td>
-                <td>20:00:00</td>
-                <td>01:00:00</td>
-                <td>09:00:00</td>
-            </tr>
-            <tr>
-                <td>テスト太郎</td>
-                <td>10:00:00</td>
-                <td>20:00:00</td>
-                <td>01:00:00</td>
-                <td>09:00:00</td>
-            </tr>
-            <tr>
-                <td>テスト太郎</td>
-                <td>10:00:00</td>
-                <td>20:00:00</td>
-                <td>01:00:00</td>
-                <td>09:00:00</td>
-            </tr>
-        </tbody>
-    </table>
+            <tbody>
+                    @foreach($works as $work)
+                        <tr>
+                            <td>{{ $work->user->name }}</td>
+                            <td>{{ \Carbon\Carbon::parse($work->work_start)->format('H:i:s') }}</td>
+                            <td>{{ $work->work_end ? \Carbon\Carbon::parse($work->work_end)->format('H:i:s') : '-' }}</td>
+                            <td>
+                                @php
+                                    $breakDuration = $work->breakTimes->sum(function($break) {
+                                        if ($break->break_end) {
+                                            return \Carbon\Carbon::parse($break->break_end)->diffInMinutes(\Carbon\Carbon::parse($break->break_start));
+                                        }
+                                        return 0;
+                                    });
+                                    $breakHours = floor($breakDuration / 60);
+                                    $breakMinutes = $breakDuration % 60;
+                                @endphp
+                                {{ sprintf('%02d:%02d:00', $breakHours, $breakMinutes) }}
+                            </td>
+                            <td>
+                                @php
+                                    $workDuration = 0;
+                                    if ($work->work_end) {
+                                        $workDuration = \Carbon\carbon::parse($work->work_end)->diffInMinutes(\Carbon\carbon::parse($work->work_start));
+                                    $workDuration -= $breakDuration;
+                                    }
+                                    $workHours = floor($workDuration / 60);
+                                    $workMinutes = $workDuration % 60;
+                                @endphp
+                                {{ sprintf('%02d:%02d:00', $workHours, $workMinutes) }}
+                            </td>
+                        </tr>
+                    @endforeach
+            </tbody>
+        </table>
 
-    <div class="pagination">
-        <a href="#">1</a>
-        <a href="#">2</a>
-        <a href="#">3</a>
-        <a href="#">4</a>
-        <a href="#">5</a>
-        <a href="#">6</a>
-    </div>
+        <div class="pagination">
+            {{ $works->links() }}
+        </div>
 </div>
-
 
 @endsection
 

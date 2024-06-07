@@ -5,19 +5,27 @@
     flex-direction: column;
 }
 
-h2{
-    margin-top: 40px;
-    font-weight: 500;
+p{
+    margin-top: 30px;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.alert-success{
+    color:blue;
+}
+
+.alert-danger{
+    color:red;
 }
 
 .stamp{
     display: grid;
     grid-template-columns: repeat(2,auto);
-    /* gap: 10px; */
 }
 
-.stamp button{
-    padding: 70px 210px;
+.stamp-button{
+    padding: 80px 200px;
     background-color: #fff;
     border: none;
     border-radius: 3px;
@@ -25,4 +33,6 @@ h2{
     font-weight:500;
     margin: 25px;
     cursor: pointer;
+    margin-top: 20px;
+
 }
