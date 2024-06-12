@@ -10,11 +10,15 @@
         <p class="user_name">{{ $user->name }}さんの勤怠表</p>
     </div>
 
-    <p class="date-navigation">
-        <a href="{{ route('users.attendance.show', ['user' => $user->id, 'date' => $carbonDate->copy()->subDay()->format('Y-m-d')]) }}" class="button">&lt;</a>
-        <span class="date">{{ $carbonDate->format('Y-m-d') }}</span>
-        <a href="{{ route('users.attendance.show', ['user' => $user->id, 'date' => $carbonDate->copy()->addDay()->format('Y-m-d')]) }}" class="button">&gt;</a>
-    </p>
+    <div class="date-navigation">
+        <a href="{{ route('users.attendance.show', ['user' => $user->id, 'date' => $carbonDate->copy()->subDay()->format('Y-m-d')]) }}" class="button"> &lt; </a>
+
+        <form action="{{ route('users.attendance.show', ['user' => $user->id]) }}" method="GET">
+            <input type="date" value="{{ $carbonDate->format('Y-m-d') }}" onchange="this.form.submit()">
+        </form>
+
+        <a href="{{ route('users.attendance.show', ['user' => $user->id, 'date' => $carbonDate->copy()->addDay()->format('Y-m-d')]) }}" class="button"> &gt; </a>
+</div>
 
     <table class="table">
         <thead>

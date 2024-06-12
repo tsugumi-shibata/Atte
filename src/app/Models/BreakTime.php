@@ -18,11 +18,11 @@ class BreakTime extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_id');
     }
 
     public function work()
     {
-        return $this->belongsTo(Work::class);
+        return $this->belongsTo(Work::class,'work/id');
     }
 }

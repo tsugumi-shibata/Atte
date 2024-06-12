@@ -27,6 +27,9 @@
                     <a href="{{ route('users.index') }}">会員一覧</a>
                 </li>
                 <li class="nav_item">
+                    <a href="{{ route('users.attendance.show',Auth::user()->id) }}">マイページ</a>
+                </li>
+                <li class="nav_item">
                     <form class="form" action="{{ route('logout') }}"method="post">
                         @csrf
                         <button class="logout-button" type="submit">ログアウト</button>

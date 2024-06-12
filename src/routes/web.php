@@ -26,35 +26,37 @@ use App\Http\Controllers\UserAttendanceController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
 Route::middleware('auth')->group(function(){
+    // スタンプ
     Route::get('/stamp',[StampController::class,'index'])->name('stamp');
 
     Route::prefix('stamp')->group(function () {
         Route::post('/work/start',[WorkController::class,'start'])->name('work.start');
         Route::post('/work/end',[WorkController::class,'end'])->name('work.end');
         Route::post('/break/start/{workId}',[BreakController::class,'start'])->name('break.start');
-        Route::post('/break/end{workId}', [BreakController::class,'end'])->name('break.end');
+        Route::post('/break/end/{workId}', [BreakController::class,'end'])->name('break.end');
     });
 
+    // 日付
     Route::get('/date/{date?}',[DateController::class,'index'])->name('date');
 
+    // 認証
     Route::post('/logout',[AuthController::class,'logout'])->name('logout');
 
+    // ユーザー管理
     Route::get('/users',[UserController::class,'index'])->name('users.index');
     Route::get('/users/{user}',[UserAttendanceController::class,'show'])->name('users.attendance.show');
     Route::delete('/users/{user}',[UserController::class, 'destroy'])->name('users.destroy');
 });
 
+// 登録・ログイン
 Route::post('/register',[RegisterController::class,'store'])->name('register');
 
 Route::post('/login',[AuthController::class,'login'])->name('login');
 
 
-// 追加メール認証
+// メール認証
 Route::get('/email/verify', function() {
     return view('auth.verify-email');
 })->middleware('auth')->name('verification.notice');

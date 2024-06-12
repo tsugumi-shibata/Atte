@@ -33,9 +33,6 @@ class VerifyEmail extends Notification
      * @return array
      */
 
-    public static $createUrlCallback;
-    public static $toMailCallback;
-
     public function via($notifiable)
     {
         return ['mail'];
@@ -51,45 +48,23 @@ class VerifyEmail extends Notification
     {
         $verificationUrl = $this->verificationUrl($notifiable);
 
-        if (static::$toMailCallback) {
-            return call_user_func(static::$toMailCallback, $notifiable, $verificationUrl);
-        }
-        return $this->buildMailMessage($verificationUrl);
-    }
-
-    protected function buildMailMessage($url)
-    {
         return (new MailMessage)
-                    ->subject(Lang::get('auth.verify_email_subject'))
-                    ->line(Lang::get('auth.verify_email_line_1'))
-                    ->action(Lang::get('auth.verify_email_action'), $url)
-                    ->line(Lang::get('auth.verify_email_line_2'));
+            ->subject(Lang::get('auth.verify_email_subject'))
+            ->line(Lang::get('auth.verify_email_line_1'))
+            ->action(Lang::get('auth.verify_email_action'), $verificationUrl)
+            ->line(Lang::get('auth.verify_email_line_2'));
     }
 
     protected function verificationUrl($notifiable)
     {
-        if (static::$createUrlCallback) {
-            return call_user_func(static::$createUrlCallback, $notifiable);
-        }
-
         return URL::temporarySignedRoute(
             'verification.verify',
-            Carbon::now()->addMinutes(Config::get('auth.verification.expire', 60)),
+            now()->addMinutes(config('auth.verification.expire', 60)),
             [
-                'id' => $notifiable->getKey(),
-                'hash' => sha1($notifiable->getEmailForVerification()),
+                'id' => $notifiable->getKey(), 
+                'hash' => sha1($notifiable->getEmailForVerification())
             ]
             );
-    }
-
-    public static function createUrlUsing($callback)
-    {
-        static::$createUrlCallback = $callback;
-    }
-
-    public static function toMailUsing($callback)
-    {
-        static::$toMailCallback = $callback;
     }
 
     /**

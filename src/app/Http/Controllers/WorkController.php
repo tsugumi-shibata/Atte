@@ -34,7 +34,7 @@ class WorkController extends Controller
                         ->latest()->first();
 
         if (!$work) {
-            return redirect()->route('stamp')->with('error','勤務中ではありません');
+            return redirect()->route('stamp')->with('error','勤務が開始されていません');
         }
 
         //休憩が終了しているか確認

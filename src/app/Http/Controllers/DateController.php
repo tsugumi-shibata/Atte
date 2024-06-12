@@ -13,7 +13,7 @@ class DateController extends Controller
     {
         $carbonDate = $date ? Carbon::parse($date) : Carbon::now();
         $works = Work::with('breakTimes','user')
-                        ->WhereDate('work_start',$carbonDate->format('Y-m-d'))
+                        ->whereDate('work_start',$carbonDate)
                         ->paginate(5);
 
         return view('date',compact('works','carbonDate'));

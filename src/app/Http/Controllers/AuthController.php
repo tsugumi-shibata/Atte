@@ -14,7 +14,8 @@ class AuthController extends Controller
         $credentials = $request->only(['email','password']);
         
         if(Auth::attempt($credentials)) {
-            return redirect('/stamp');
+            $request->session()->regenerate();
+            return redirect()->intended('/stamp');
         } else {
             return back()->withErrors(['email'=>'メールアドレスかパスワードが間違っています']);
         }
@@ -26,7 +27,7 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/login');
+        return redirect()->route('login');
     }
 
 

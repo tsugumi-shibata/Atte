@@ -10,9 +10,11 @@ class StampController extends Controller
 {
     public function index()
     {
-        $currentWork = Work::where('user_id',Auth::id())
-                                ->latest()->first();
-        $currentWorkId = $currentWork ? $currentWork->id : null;
+        $currentWork = Work::where('user_id',auth()->id())
+                                ->latest()
+                                ->first();
+
+        $currentWorkId = $currentWork->id ?? null;
 
         return view('stamp', compact('currentWorkId'));
     }

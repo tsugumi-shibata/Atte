@@ -11,19 +11,15 @@ class BreakController extends Controller
 {
     public function start(Request $request, $workId)
     {
+        // 勤務が開始されていない場合、休憩開始不可
         $work = Work::where('id',$workId)
                         ->where('user_id',Auth::id())
                         ->whereNull('work_end')
                         ->first();
 
-        // 勤務が開始されていない場合、休憩開始不可
+        
         if(!$work) {
             return redirect()->route('stamp')->with('error','勤務が開始されていません');
-        }
-
-                // 現在のユーザーがこの勤務に属しているか確認
-        if ($work->user_id !== Auth::id()) {
-            return redirect()->route('stamp')->with('error','不正な操作です');
         }
 
         //休憩が開始されていないこと確認
@@ -48,6 +44,7 @@ class BreakController extends Controller
 
     public function end(Request $request, $workId)
     {
+        // 勤務が開始されていない場合、休憩終了不可
         $work = Work::where('id',$workId)
                         ->where('user_id',Auth::id())
                         ->whereNull('work_end')

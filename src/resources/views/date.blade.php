@@ -7,11 +7,15 @@
 @section('content')
 <div class="content">
 
-    <p class="date-navigation">
-            <a href="{{ route('date',['date' => $carbonDate->copy()->subDay()->format('Y-m-d')]) }}" class="button"> &lt; </a>
-            <span class="date">{{ $carbonDate->format('Y-m-d') }}</span>
-            <a href="{{ route('date',['date' => $carbonDate->copy()->addDay()->format('Y-m-d')]) }}" class="button"> &gt; </a>
-    </p>
+    <div class="date-navigation">
+        <a href="{{ route('date',['date' => $carbonDate->copy()->subDay()->format('Y-m-d')]) }}" class="button"> &lt; </a>
+
+        <form action="{{ route('date') }}" method="GET">
+            <input type="date" class="date" value="{{ $carbonDate->format('Y-m-d') }}">
+        </form>
+
+        <a href="{{ route('date',['date' => $carbonDate->copy()->addDay()->format('Y-m-d')]) }}" class="button"> &gt; </a>
+    </div>
 
         <table class="table">
             <thead>
